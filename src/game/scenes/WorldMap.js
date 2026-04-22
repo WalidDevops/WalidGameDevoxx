@@ -393,6 +393,183 @@ export class WorldMap extends Scene {
     const invBtn = this.createButton(944, 700, "🎁 Goodies", 0x9b59b6, () => {
       this.scene.start("InventoryScene");
     });
+
+    // Bouton MAGIE - Libérer Yazan
+    this.createMagicButton();
+  }
+
+  createMagicButton() {
+    const btn = this.add.container(944, 50);
+
+    // Fond brillant
+    const glow = this.add.circle(0, 0, 35, 0xf7c531, 0.3);
+    this.tweens.add({
+      targets: glow,
+      scale: { from: 1, to: 1.4 },
+      alpha: { from: 0.3, to: 0.1 },
+      duration: 1000,
+      yoyo: true,
+      repeat: -1
+    });
+
+    // Étoile magique
+    const star = this.add.graphics();
+    star.fillStyle(0xf7c531);
+    star.beginPath();
+    for (let i = 0; i < 5; i++) {
+      const angle = (i * 4 * Math.PI) / 5 - Math.PI / 2;
+      const x = Math.cos(angle) * 22;
+      const y = Math.sin(angle) * 22;
+      if (i === 0) star.moveTo(x, y);
+      else star.lineTo(x, y);
+    }
+    star.closePath();
+    star.fillPath();
+
+    // Texte
+    const label = this.add.text(0, 45, "✨ MAGIE", {
+      fontFamily: "Arial Black",
+      fontSize: 12,
+      color: "#f7c531"
+    }).setOrigin(0.5);
+
+    btn.add([glow, star, label]);
+    btn.setSize(60, 60);
+    btn.setInteractive({ useHandCursor: true });
+
+    // Animation rotation
+    this.tweens.add({
+      targets: star,
+      angle: 360,
+      duration: 5000,
+      repeat: -1
+    });
+
+    btn.on("pointerover", () => {
+      this.tweens.add({ targets: btn, scale: 1.2, duration: 150 });
+    });
+    btn.on("pointerout", () => {
+      this.tweens.add({ targets: btn, scale: 1, duration: 150 });
+    });
+    btn.on("pointerdown", () => {
+      this.activateUltimateMagic();
+    });
+  }
+
+  activateUltimateMagic() {
+    // Effet de flash magique
+    const flash = this.add.rectangle(512, 384, 1024, 768, 0xf7c531, 0);
+    flash.setDepth(100);
+    
+    this.tweens.add({
+      targets: flash,
+      alpha: { from: 0, to: 0.8 },
+      duration: 500,
+      yoyo: true,
+      onComplete: () => flash.destroy()
+    });
+
+    // Particules d'étoiles
+    for (let i = 0; i < 50; i++) {
+      const particle = this.add.text(
+        Phaser.Math.Between(100, 924),
+        Phaser.Math.Between(100, 668),
+        "⭐",
+        { fontSize: Phaser.Math.Between(20, 40) }
+      ).setDepth(101);
+      
+      this.tweens.add({
+        targets: particle,
+        y: particle.y - 100,
+        alpha: 0,
+        scale: { from: 0, to: 1.5 },
+        duration: 1500,
+        delay: i * 30,
+        onComplete: () => particle.destroy()
+      });
+    }
+
+    // Compléter tous les niveaux avec 3 étoiles
+    const levels = ["tictactoe", "carrace", "minigolf", "babyfoot"];
+    levels.forEach(level => {
+      GameState.completeLevel(level, 3);
+    });
+
+    // Message de victoire
+    this.time.delayedCall(800, () => {
+      this.showVictoryMessage();
+    });
+  }
+
+  showVictoryMessage() {
+    const overlay = this.add.rectangle(512, 384, 1024, 768, 0x000000, 0.85);
+    overlay.setDepth(200);
+
+    const popup = this.add.container(512, 384);
+    popup.setDepth(201);
+
+    const bg = this.add.graphics();
+    bg.fillStyle(0x1a1a2e);
+    bg.fillRoundedRect(-300, -220, 600, 440, 25);
+    bg.lineStyle(4, 0xf7c531);
+    bg.strokeRoundedRect(-300, -220, 600, 440, 25);
+
+    const ninja = this.add.text(0, -160, "🥷", { fontSize: 60 }).setOrigin(0.5);
+
+    const title = this.add.text(0, -80, "✨ YAZAN EST LIBRE! ✨", {
+      fontFamily: "Arial Black",
+      fontSize: 32,
+      color: "#f7c531"
+    }).setOrigin(0.5);
+
+    const message = this.add.text(0, 40, 
+      "Grâce à ta magie, Yazan a vaincu\ntous les défis et s'est échappé\ndu monde ninja!\n\n🎉 FÉLICITATIONS! 🎉", {
+      fontFamily: "Arial",
+      fontSize: 18,
+      color: "#ffffff",
+      align: "center",
+      lineSpacing: 8
+    }).setOrigin(0.5);
+
+    // Bouton fermer
+    const closeBtn = this.add.container(0, 170);
+    const closeBg = this.add.graphics();
+    closeBg.fillStyle(0xff6b35);
+    closeBg.fillRoundedRect(-80, -20, 160, 40, 10);
+    const closeText = this.add.text(0, 0, "🎮 Continuer", {
+      fontFamily: "Arial Black",
+      fontSize: 18,
+      color: "#ffffff"
+    }).setOrigin(0.5);
+    closeBtn.add([closeBg, closeText]);
+    closeBtn.setSize(160, 40);
+    closeBtn.setInteractive({ useHandCursor: true });
+    closeBtn.on("pointerdown", () => {
+      popup.destroy();
+      overlay.destroy();
+      this.scene.restart();
+    });
+
+    popup.add([bg, ninja, title, message, closeBtn]);
+
+    // Animation d'apparition
+    popup.setScale(0);
+    this.tweens.add({
+      targets: popup,
+      scale: 1,
+      duration: 500,
+      ease: "Back.easeOut"
+    });
+
+    // Animation du ninja (légère)
+    this.tweens.add({
+      targets: ninja,
+      y: ninja.y - 10,
+      duration: 800,
+      yoyo: true,
+      repeat: -1,
+      ease: "Sine.easeInOut"
+    });
   }
 
   createButton(x, y, text, color, callback) {

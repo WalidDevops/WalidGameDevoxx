@@ -5,6 +5,8 @@ import { AuthScene } from "./scenes/AuthScene";
 import { WorldMap } from "./scenes/WorldMap";
 import { TicTacToeScene } from "./scenes/TicTacToeScene";
 import { CarRaceScene } from "./scenes/CarRaceScene";
+import { MiniGolfScene } from "./scenes/MiniGolfScene";
+import { BabyfootScene } from "./scenes/BabyfootScene";
 import { InventoryScene } from "./scenes/InventoryScene";
 import { GameOver } from "./scenes/GameOver";
 import * as Phaser from "phaser";
@@ -34,6 +36,8 @@ const config = {
     WorldMap, // Carte du monde (hub)
     TicTacToeScene, // Mini-jeu XO
     CarRaceScene, // Mini-jeu Course
+    MiniGolfScene, // Mini-jeu Golf
+    BabyfootScene, // Mini-jeu Babyfoot
     InventoryScene, // Inventaire des goodies
     GameOver, // Écran de fin
   ],
