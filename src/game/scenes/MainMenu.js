@@ -34,6 +34,9 @@ export class MainMenu extends Scene {
     // Particules décoratives
     this.createParticles();
 
+    // Bouton d'aide
+    this.createHelpButton();
+
     // Animation d'entrée
     this.cameras.main.fadeIn(500, 0, 0, 0);
   }
@@ -395,5 +398,121 @@ export class MainMenu extends Scene {
         },
       });
     }
+  }
+
+  createHelpButton() {
+    const helpBtn = this.add.container(70, 50);
+
+    // Fond du bouton
+    const bg = this.add.graphics();
+    bg.fillStyle(0x9b59b6);
+    bg.fillCircle(0, 0, 22);
+    bg.lineStyle(3, 0xffffff);
+    bg.strokeCircle(0, 0, 22);
+
+    // Icône
+    const icon = this.add.text(0, 0, "?", {
+      fontFamily: "Arial Black",
+      fontSize: 26,
+      color: "#ffffff",
+    }).setOrigin(0.5);
+
+    helpBtn.add([bg, icon]);
+    helpBtn.setSize(50, 50);
+    helpBtn.setInteractive({ useHandCursor: true });
+    helpBtn.setDepth(100);
+
+    // Animation de pulsation
+    this.tweens.add({
+      targets: helpBtn,
+      scale: { from: 1, to: 1.15 },
+      duration: 600,
+      yoyo: true,
+      repeat: -1,
+      ease: "Sine.easeInOut",
+    });
+
+    helpBtn.on("pointerdown", () => {
+      this.showStoryPopup();
+    });
+  }
+
+  showStoryPopup() {
+    // Overlay sombre
+    const overlay = this.add.rectangle(512, 384, 1024, 768, 0x000000, 0.8);
+    overlay.setInteractive();
+    overlay.setDepth(200);
+
+    const popup = this.add.container(512, 384);
+    popup.setDepth(201);
+
+    // Fond de la popup
+    const bg = this.add.graphics();
+    bg.fillStyle(0x1a1a2e);
+    bg.fillRoundedRect(-350, -250, 700, 500, 20);
+    bg.lineStyle(4, 0xff6b35);
+    bg.strokeRoundedRect(-350, -250, 700, 500, 20);
+
+    // Titre
+    const title = this.add.text(0, -210, "🥷 L'HISTOIRE DE YAZAN", {
+      fontFamily: "Arial Black",
+      fontSize: 28,
+      color: "#ff6b35",
+    }).setOrigin(0.5);
+
+    // Texte de l'histoire
+    const story = `Yazan est un jeune ninja intrépide qui rêve de
+devenir le plus grand maître ninja de tous les temps.
+
+Mais un jour, le sorcier maléfique Zorkhan a enfermé
+Yazan dans un monde magique rempli de défis !
+
+Pour s'échapper, Yazan doit :
+   🎮 Gagner 4 mini-jeux épiques
+   ⭐ Collecter des étoiles de pouvoir
+   🎁 Récupérer des goodies magiques
+   🧠 Répondre à des questions éducatives
+
+Chaque victoire rapproche Yazan de la liberté...
+et lui donne des pouvoirs spéciaux !
+
+🌟 Aide Yazan à s'échapper ! 🌟`;
+
+    const storyText = this.add.text(0, 20, story, {
+      fontFamily: "Arial",
+      fontSize: 18,
+      color: "#ffffff",
+      align: "center",
+      lineSpacing: 6,
+    }).setOrigin(0.5);
+
+    // Bouton fermer
+    const closeBtn = this.add.container(0, 200);
+    const closeBg = this.add.graphics();
+    closeBg.fillStyle(0xff6b35);
+    closeBg.fillRoundedRect(-80, -20, 160, 40, 10);
+    const closeText = this.add.text(0, 0, "✨ C'est parti !", {
+      fontFamily: "Arial Black",
+      fontSize: 18,
+      color: "#ffffff",
+    }).setOrigin(0.5);
+    closeBtn.add([closeBg, closeText]);
+    closeBtn.setSize(160, 40);
+    closeBtn.setInteractive({ useHandCursor: true });
+    closeBtn.on("pointerdown", () => {
+      popup.destroy();
+      overlay.destroy();
+    });
+
+    popup.add([bg, title, storyText, closeBtn]);
+
+    // Animation d'apparition
+    popup.setScale(0);
+    this.tweens.add({
+      targets: popup,
+      scale: 1,
+      duration: 300,
+      ease: "Back.easeOut",
+    });
   }
 }

@@ -41,8 +41,149 @@ export class AuthScene extends Scene {
     // Bouton retour
     this.createBackButton();
 
+    // Bouton aide (histoire du jeu)
+    this.createHelpButton();
+
     // Animation d'entrée
     this.cameras.main.fadeIn(300);
+  }
+
+  createHelpButton() {
+    const helpBtn = this.add.container(950, 50);
+
+    // Fond du bouton
+    const bg = this.add.graphics();
+    bg.fillStyle(0x9b59b6);
+    bg.fillCircle(0, 0, 22);
+    bg.lineStyle(3, 0xffffff);
+    bg.strokeCircle(0, 0, 22);
+
+    // Icône
+    const icon = this.add.text(0, 0, "?", {
+      fontFamily: "Arial Black",
+      fontSize: 26,
+      color: "#ffffff",
+    }).setOrigin(0.5);
+
+    helpBtn.add([bg, icon]);
+    helpBtn.setSize(50, 50);
+    helpBtn.setInteractive({ useHandCursor: true });
+    helpBtn.setDepth(100); // Au premier plan
+
+    // Animation de pulsation
+    this.tweens.add({
+      targets: helpBtn,
+      scale: { from: 1, to: 1.15 },
+      duration: 600,
+      yoyo: true,
+      repeat: -1,
+      ease: "Sine.easeInOut",
+    });
+
+    helpBtn.on("pointerover", () => {
+      this.tweens.add({ targets: helpBtn, scale: 1.2, duration: 100 });
+    });
+
+    helpBtn.on("pointerout", () => {
+      this.tweens.add({ targets: helpBtn, scale: 1, duration: 100 });
+    });
+
+    helpBtn.on("pointerdown", () => {
+      this.showStoryPopup();
+    });
+  }
+
+  showStoryPopup() {
+    // Overlay sombre
+    const overlay = this.add.rectangle(512, 384, 1024, 768, 0x000000, 0.85);
+    overlay.setInteractive();
+
+    // Popup container
+    const popup = this.add.container(512, 384);
+
+    // Fond du popup
+    const bg = this.add.graphics();
+    bg.fillStyle(0x1a1a2e);
+    bg.fillRoundedRect(-350, -280, 700, 560, 25);
+    bg.lineStyle(4, 0xff6b35);
+    bg.strokeRoundedRect(-350, -280, 700, 560, 25);
+
+    // Titre
+    const title = this.add.text(0, -240, "📖 L'HISTOIRE DE YAZAN", {
+      fontFamily: "Arial Black",
+      fontSize: 32,
+      color: "#f7c531",
+    }).setOrigin(0.5);
+
+    // Histoire du jeu
+    const storyText = `
+🥷 Dans un monde parallèle mystérieux, le jeune ninja Yazan
+s'est retrouvé piégé dans une dimension inconnue !
+
+🌟 Pour s'échapper et retrouver son foyer, il doit traverser
+différents défis et prouver sa valeur en tant que ninja.
+
+🎮 COMMENT JOUER :
+• Complète les mini-jeux pour avancer
+• Collecte les goodies éducatifs
+• Apprends des choses sur l'IA et les valeurs de vie !
+
+⭕ Dojo XO : Affronte le maître du morpion
+🏎️ Course Ninja : Évite les obstacles à toute vitesse
+⛳ Golf Zen : Vise avec précision et calme
+⚽ Arena Foot : Marque des buts contre l'IA
+
+✨ Chaque victoire te rapproche de la liberté !
+Bonne chance, jeune ninja ! 🍀
+    `;
+
+    const story = this.add.text(0, 20, storyText.trim(), {
+      fontFamily: "Arial",
+      fontSize: 16,
+      color: "#ffffff",
+      align: "center",
+      lineSpacing: 8,
+    }).setOrigin(0.5);
+
+    // Bouton fermer
+    const closeBtn = this.add.container(0, 230);
+    const closeBg = this.add.graphics();
+    closeBg.fillStyle(0xff6b35);
+    closeBg.fillRoundedRect(-80, -20, 160, 40, 10);
+    
+    const closeText = this.add.text(0, 0, "✖ Fermer", {
+      fontFamily: "Arial Black",
+      fontSize: 18,
+      color: "#ffffff",
+    }).setOrigin(0.5);
+
+    closeBtn.add([closeBg, closeText]);
+    closeBtn.setSize(160, 40);
+    closeBtn.setInteractive({ useHandCursor: true });
+
+    closeBtn.on("pointerover", () => {
+      this.tweens.add({ targets: closeBtn, scale: 1.1, duration: 100 });
+    });
+
+    closeBtn.on("pointerout", () => {
+      this.tweens.add({ targets: closeBtn, scale: 1, duration: 100 });
+    });
+
+    closeBtn.on("pointerdown", () => {
+      popup.destroy();
+      overlay.destroy();
+    });
+
+    popup.add([bg, title, story, closeBtn]);
+
+    // Animation d'apparition
+    popup.setScale(0);
+    this.tweens.add({
+      targets: popup,
+      scale: 1,
+      duration: 300,
+      ease: "Back.easeOut",
+    });
   }
 
   createFormPanel(centerX) {
