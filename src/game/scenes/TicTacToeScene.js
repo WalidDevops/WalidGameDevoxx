@@ -199,16 +199,20 @@ export class TicTacToeScene extends Scene {
 
     // Effet de brillance autour de l'étoile
     const glow = this.add.circle(0, 0, 35, 0xf7c531, 0.3);
-    
+
     // Étoile principale
-    const star = this.add.text(0, 0, "✨", {
-      fontSize: 40,
-    }).setOrigin(0.5);
+    const star = this.add
+      .text(0, 0, "✨", {
+        fontSize: 40,
+      })
+      .setOrigin(0.5);
 
     // Petite étoile secondaire
-    const starSmall = this.add.text(15, -15, "⭐", {
-      fontSize: 16,
-    }).setOrigin(0.5);
+    const starSmall = this.add
+      .text(15, -15, "⭐", {
+        fontSize: 16,
+      })
+      .setOrigin(0.5);
 
     starContainer.add([glow, star, starSmall]);
 
@@ -249,13 +253,16 @@ export class TicTacToeScene extends Scene {
     starContainer.add(hitArea);
 
     // Tooltip au survol
-    const tooltip = this.add.text(0, -50, "🪄 Magie!", {
-      fontFamily: "Arial",
-      fontSize: 14,
-      color: "#f7c531",
-      backgroundColor: "#000000",
-      padding: { x: 8, y: 4 },
-    }).setOrigin(0.5).setAlpha(0);
+    const tooltip = this.add
+      .text(0, -50, "🪄 Magie!", {
+        fontFamily: "Arial",
+        fontSize: 14,
+        color: "#f7c531",
+        backgroundColor: "#000000",
+        padding: { x: 8, y: 4 },
+      })
+      .setOrigin(0.5)
+      .setAlpha(0);
     starContainer.add(tooltip);
 
     hitArea.on("pointerover", () => {
@@ -299,12 +306,14 @@ export class TicTacToeScene extends Scene {
 
     // Particules magiques
     for (let i = 0; i < 30; i++) {
-      const particle = this.add.text(
-        512 + Phaser.Math.Between(-200, 200),
-        384 + Phaser.Math.Between(-200, 200),
-        ["✨", "⭐", "🌟", "💫"][Phaser.Math.Between(0, 3)],
-        { fontSize: Phaser.Math.Between(20, 40) }
-      ).setOrigin(0.5);
+      const particle = this.add
+        .text(
+          512 + Phaser.Math.Between(-200, 200),
+          384 + Phaser.Math.Between(-200, 200),
+          ["✨", "⭐", "🌟", "💫"][Phaser.Math.Between(0, 3)],
+          { fontSize: Phaser.Math.Between(20, 40) },
+        )
+        .setOrigin(0.5);
 
       this.tweens.add({
         targets: particle,
@@ -318,13 +327,16 @@ export class TicTacToeScene extends Scene {
     }
 
     // Message magique
-    const magicText = this.add.text(512, 384, "🪄 MAGIE! 🪄", {
-      fontFamily: "Arial Black",
-      fontSize: 60,
-      color: "#f7c531",
-      stroke: "#000000",
-      strokeThickness: 6,
-    }).setOrigin(0.5).setScale(0);
+    const magicText = this.add
+      .text(512, 384, "🪄 MAGIE! 🪄", {
+        fontFamily: "Arial Black",
+        fontSize: 60,
+        color: "#f7c531",
+        stroke: "#000000",
+        strokeThickness: 6,
+      })
+      .setOrigin(0.5)
+      .setScale(0);
 
     this.tweens.add({
       targets: magicText,

@@ -143,7 +143,7 @@ export class GameState {
    */
   static getProgress() {
     const user = AuthService.getCurrentUser();
-    const progressKey = user ? `progress_${user.userId}` : 'progress_guest';
+    const progressKey = user ? `progress_${user.userId}` : "progress_guest";
     return StorageService.load(progressKey, this.getDefaultProgress());
   }
 
@@ -170,7 +170,7 @@ export class GameState {
    */
   static saveProgress(progress) {
     const user = AuthService.getCurrentUser();
-    const progressKey = user ? `progress_${user.userId}` : 'progress_guest';
+    const progressKey = user ? `progress_${user.userId}` : "progress_guest";
     progress.lastPlayed = new Date().toISOString();
     StorageService.save(progressKey, progress);
   }

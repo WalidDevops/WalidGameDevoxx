@@ -247,16 +247,20 @@ export class CarRaceScene extends Scene {
 
     // Effet de brillance autour de l'étoile
     const glow = this.add.circle(0, 0, 30, 0xf7c531, 0.3);
-    
+
     // Étoile principale
-    const star = this.add.text(0, 0, "✨", {
-      fontSize: 35,
-    }).setOrigin(0.5);
+    const star = this.add
+      .text(0, 0, "✨", {
+        fontSize: 35,
+      })
+      .setOrigin(0.5);
 
     // Petite étoile secondaire
-    const starSmall = this.add.text(12, -12, "⭐", {
-      fontSize: 14,
-    }).setOrigin(0.5);
+    const starSmall = this.add
+      .text(12, -12, "⭐", {
+        fontSize: 14,
+      })
+      .setOrigin(0.5);
 
     starContainer.add([glow, star, starSmall]);
 
@@ -297,13 +301,16 @@ export class CarRaceScene extends Scene {
     starContainer.add(hitArea);
 
     // Tooltip au survol
-    const tooltip = this.add.text(0, -45, "🪄 Magie!", {
-      fontFamily: "Arial",
-      fontSize: 12,
-      color: "#f7c531",
-      backgroundColor: "#000000",
-      padding: { x: 6, y: 3 },
-    }).setOrigin(0.5).setAlpha(0);
+    const tooltip = this.add
+      .text(0, -45, "🪄 Magie!", {
+        fontFamily: "Arial",
+        fontSize: 12,
+        color: "#f7c531",
+        backgroundColor: "#000000",
+        padding: { x: 6, y: 3 },
+      })
+      .setOrigin(0.5)
+      .setAlpha(0);
     starContainer.add(tooltip);
 
     hitArea.on("pointerover", () => {
@@ -341,12 +348,12 @@ export class CarRaceScene extends Scene {
     if (this.gameOver) return;
 
     this.gameOver = true;
-    
+
     // Arrêter les timers (vérifier qu'ils existent)
     if (this.obstacleTimer) this.obstacleTimer.destroy();
     if (this.collectibleTimer) this.collectibleTimer.destroy();
     if (this.difficultyTimer) this.difficultyTimer.destroy();
-    
+
     // Marquer comme déjà nettoyé pour éviter double destruction
     this.obstacleTimer = null;
     this.collectibleTimer = null;
@@ -357,12 +364,14 @@ export class CarRaceScene extends Scene {
 
     // Particules magiques autour de la voiture
     for (let i = 0; i < 25; i++) {
-      const particle = this.add.text(
-        this.player.x + Phaser.Math.Between(-100, 100),
-        this.player.y + Phaser.Math.Between(-100, 100),
-        ["✨", "⭐", "🌟", "💫"][Phaser.Math.Between(0, 3)],
-        { fontSize: Phaser.Math.Between(16, 32) }
-      ).setOrigin(0.5);
+      const particle = this.add
+        .text(
+          this.player.x + Phaser.Math.Between(-100, 100),
+          this.player.y + Phaser.Math.Between(-100, 100),
+          ["✨", "⭐", "🌟", "💫"][Phaser.Math.Between(0, 3)],
+          { fontSize: Phaser.Math.Between(16, 32) },
+        )
+        .setOrigin(0.5);
 
       this.tweens.add({
         targets: particle,
@@ -376,13 +385,16 @@ export class CarRaceScene extends Scene {
     }
 
     // Message magique
-    const magicText = this.add.text(512, 350, "🪄 TÉLÉPORTATION! 🪄", {
-      fontFamily: "Arial Black",
-      fontSize: 48,
-      color: "#f7c531",
-      stroke: "#000000",
-      strokeThickness: 6,
-    }).setOrigin(0.5).setScale(0);
+    const magicText = this.add
+      .text(512, 350, "🪄 TÉLÉPORTATION! 🪄", {
+        fontFamily: "Arial Black",
+        fontSize: 48,
+        color: "#f7c531",
+        stroke: "#000000",
+        strokeThickness: 6,
+      })
+      .setOrigin(0.5)
+      .setScale(0);
 
     this.tweens.add({
       targets: magicText,
