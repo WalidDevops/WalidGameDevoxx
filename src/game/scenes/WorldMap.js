@@ -499,6 +499,21 @@ export class WorldMap extends Scene {
       GameState.completeLevel(level, 3);
     });
 
+    // Collecter tous les goodies
+    const allGoodies = [
+      "ai_basics",
+      "robot_friend", // tictactoe
+      "share_heart",
+      "logic_star", // carrace
+      "teamwork_badge",
+      "data_crystal", // minigolf
+      "respect_shield",
+      "code_scroll", // babyfoot
+    ];
+    allGoodies.forEach((goodieId) => {
+      GameState.collectGoodie(goodieId);
+    });
+
     // Message de victoire
     this.time.delayedCall(800, () => {
       this.showVictoryMessage();
