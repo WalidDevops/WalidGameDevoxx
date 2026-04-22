@@ -59,11 +59,13 @@ export class AuthScene extends Scene {
     bg.strokeCircle(0, 0, 22);
 
     // Icône
-    const icon = this.add.text(0, 0, "?", {
-      fontFamily: "Arial Black",
-      fontSize: 26,
-      color: "#ffffff",
-    }).setOrigin(0.5);
+    const icon = this.add
+      .text(0, 0, "?", {
+        fontFamily: "Arial Black",
+        fontSize: 26,
+        color: "#ffffff",
+      })
+      .setOrigin(0.5);
 
     helpBtn.add([bg, icon]);
     helpBtn.setSize(50, 50);
@@ -109,11 +111,13 @@ export class AuthScene extends Scene {
     bg.strokeRoundedRect(-350, -280, 700, 560, 25);
 
     // Titre
-    const title = this.add.text(0, -240, "📖 L'HISTOIRE DE YAZAN", {
-      fontFamily: "Arial Black",
-      fontSize: 32,
-      color: "#f7c531",
-    }).setOrigin(0.5);
+    const title = this.add
+      .text(0, -240, "📖 L'HISTOIRE DE YAZAN", {
+        fontFamily: "Arial Black",
+        fontSize: 32,
+        color: "#f7c531",
+      })
+      .setOrigin(0.5);
 
     // Histoire du jeu
     const storyText = `
@@ -137,25 +141,29 @@ différents défis et prouver sa valeur en tant que ninja.
 Bonne chance, jeune ninja ! 🍀
     `;
 
-    const story = this.add.text(0, 20, storyText.trim(), {
-      fontFamily: "Arial",
-      fontSize: 16,
-      color: "#ffffff",
-      align: "center",
-      lineSpacing: 8,
-    }).setOrigin(0.5);
+    const story = this.add
+      .text(0, 20, storyText.trim(), {
+        fontFamily: "Arial",
+        fontSize: 16,
+        color: "#ffffff",
+        align: "center",
+        lineSpacing: 8,
+      })
+      .setOrigin(0.5);
 
     // Bouton fermer
     const closeBtn = this.add.container(0, 230);
     const closeBg = this.add.graphics();
     closeBg.fillStyle(0xff6b35);
     closeBg.fillRoundedRect(-80, -20, 160, 40, 10);
-    
-    const closeText = this.add.text(0, 0, "✖ Fermer", {
-      fontFamily: "Arial Black",
-      fontSize: 18,
-      color: "#ffffff",
-    }).setOrigin(0.5);
+
+    const closeText = this.add
+      .text(0, 0, "✖ Fermer", {
+        fontFamily: "Arial Black",
+        fontSize: 18,
+        color: "#ffffff",
+      })
+      .setOrigin(0.5);
 
     closeBtn.add([closeBg, closeText]);
     closeBtn.setSize(160, 40);

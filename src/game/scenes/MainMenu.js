@@ -411,11 +411,13 @@ export class MainMenu extends Scene {
     bg.strokeCircle(0, 0, 22);
 
     // Icône
-    const icon = this.add.text(0, 0, "?", {
-      fontFamily: "Arial Black",
-      fontSize: 26,
-      color: "#ffffff",
-    }).setOrigin(0.5);
+    const icon = this.add
+      .text(0, 0, "?", {
+        fontFamily: "Arial Black",
+        fontSize: 26,
+        color: "#ffffff",
+      })
+      .setOrigin(0.5);
 
     helpBtn.add([bg, icon]);
     helpBtn.setSize(50, 50);
@@ -454,11 +456,13 @@ export class MainMenu extends Scene {
     bg.strokeRoundedRect(-350, -250, 700, 500, 20);
 
     // Titre
-    const title = this.add.text(0, -210, "🥷 L'HISTOIRE DE YAZAN", {
-      fontFamily: "Arial Black",
-      fontSize: 28,
-      color: "#ff6b35",
-    }).setOrigin(0.5);
+    const title = this.add
+      .text(0, -210, "🥷 L'HISTOIRE DE YAZAN", {
+        fontFamily: "Arial Black",
+        fontSize: 28,
+        color: "#ff6b35",
+      })
+      .setOrigin(0.5);
 
     // Texte de l'histoire
     const story = `Yazan est un jeune ninja intrépide qui rêve de
@@ -478,24 +482,28 @@ et lui donne des pouvoirs spéciaux !
 
 🌟 Aide Yazan à s'échapper ! 🌟`;
 
-    const storyText = this.add.text(0, 20, story, {
-      fontFamily: "Arial",
-      fontSize: 18,
-      color: "#ffffff",
-      align: "center",
-      lineSpacing: 6,
-    }).setOrigin(0.5);
+    const storyText = this.add
+      .text(0, 20, story, {
+        fontFamily: "Arial",
+        fontSize: 18,
+        color: "#ffffff",
+        align: "center",
+        lineSpacing: 6,
+      })
+      .setOrigin(0.5);
 
     // Bouton fermer
     const closeBtn = this.add.container(0, 200);
     const closeBg = this.add.graphics();
     closeBg.fillStyle(0xff6b35);
     closeBg.fillRoundedRect(-80, -20, 160, 40, 10);
-    const closeText = this.add.text(0, 0, "✨ C'est parti !", {
-      fontFamily: "Arial Black",
-      fontSize: 18,
-      color: "#ffffff",
-    }).setOrigin(0.5);
+    const closeText = this.add
+      .text(0, 0, "✨ C'est parti !", {
+        fontFamily: "Arial Black",
+        fontSize: 18,
+        color: "#ffffff",
+      })
+      .setOrigin(0.5);
     closeBtn.add([closeBg, closeText]);
     closeBtn.setSize(160, 40);
     closeBtn.setInteractive({ useHandCursor: true });
