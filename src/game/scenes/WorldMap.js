@@ -409,7 +409,7 @@ export class WorldMap extends Scene {
       alpha: { from: 0.3, to: 0.1 },
       duration: 1000,
       yoyo: true,
-      repeat: -1
+      repeat: -1,
     });
 
     // Étoile magique
@@ -427,11 +427,13 @@ export class WorldMap extends Scene {
     star.fillPath();
 
     // Texte
-    const label = this.add.text(0, 45, "✨ MAGIE", {
-      fontFamily: "Arial Black",
-      fontSize: 12,
-      color: "#f7c531"
-    }).setOrigin(0.5);
+    const label = this.add
+      .text(0, 45, "✨ MAGIE", {
+        fontFamily: "Arial Black",
+        fontSize: 12,
+        color: "#f7c531",
+      })
+      .setOrigin(0.5);
 
     btn.add([glow, star, label]);
     btn.setSize(60, 60);
@@ -442,7 +444,7 @@ export class WorldMap extends Scene {
       targets: star,
       angle: 360,
       duration: 5000,
-      repeat: -1
+      repeat: -1,
     });
 
     btn.on("pointerover", () => {
@@ -460,24 +462,26 @@ export class WorldMap extends Scene {
     // Effet de flash magique
     const flash = this.add.rectangle(512, 384, 1024, 768, 0xf7c531, 0);
     flash.setDepth(100);
-    
+
     this.tweens.add({
       targets: flash,
       alpha: { from: 0, to: 0.8 },
       duration: 500,
       yoyo: true,
-      onComplete: () => flash.destroy()
+      onComplete: () => flash.destroy(),
     });
 
     // Particules d'étoiles
     for (let i = 0; i < 50; i++) {
-      const particle = this.add.text(
-        Phaser.Math.Between(100, 924),
-        Phaser.Math.Between(100, 668),
-        "⭐",
-        { fontSize: Phaser.Math.Between(20, 40) }
-      ).setDepth(101);
-      
+      const particle = this.add
+        .text(
+          Phaser.Math.Between(100, 924),
+          Phaser.Math.Between(100, 668),
+          "⭐",
+          { fontSize: Phaser.Math.Between(20, 40) },
+        )
+        .setDepth(101);
+
       this.tweens.add({
         targets: particle,
         y: particle.y - 100,
@@ -485,13 +489,13 @@ export class WorldMap extends Scene {
         scale: { from: 0, to: 1.5 },
         duration: 1500,
         delay: i * 30,
-        onComplete: () => particle.destroy()
+        onComplete: () => particle.destroy(),
       });
     }
 
     // Compléter tous les niveaux avec 3 étoiles
     const levels = ["tictactoe", "carrace", "minigolf", "babyfoot"];
-    levels.forEach(level => {
+    levels.forEach((level) => {
       GameState.completeLevel(level, 3);
     });
 
@@ -516,31 +520,41 @@ export class WorldMap extends Scene {
 
     const ninja = this.add.text(0, -160, "🥷", { fontSize: 60 }).setOrigin(0.5);
 
-    const title = this.add.text(0, -80, "✨ YAZAN EST LIBRE! ✨", {
-      fontFamily: "Arial Black",
-      fontSize: 32,
-      color: "#f7c531"
-    }).setOrigin(0.5);
+    const title = this.add
+      .text(0, -80, "✨ YAZAN EST LIBRE! ✨", {
+        fontFamily: "Arial Black",
+        fontSize: 32,
+        color: "#f7c531",
+      })
+      .setOrigin(0.5);
 
-    const message = this.add.text(0, 40, 
-      "Grâce à ta magie, Yazan a vaincu\ntous les défis et s'est échappé\ndu monde ninja!\n\n🎉 FÉLICITATIONS! 🎉", {
-      fontFamily: "Arial",
-      fontSize: 18,
-      color: "#ffffff",
-      align: "center",
-      lineSpacing: 8
-    }).setOrigin(0.5);
+    const message = this.add
+      .text(
+        0,
+        40,
+        "Grâce à ta magie, Yazan a vaincu\ntous les défis et s'est échappé\ndu monde ninja!\n\n🎉 FÉLICITATIONS! 🎉",
+        {
+          fontFamily: "Arial",
+          fontSize: 18,
+          color: "#ffffff",
+          align: "center",
+          lineSpacing: 8,
+        },
+      )
+      .setOrigin(0.5);
 
     // Bouton fermer
     const closeBtn = this.add.container(0, 170);
     const closeBg = this.add.graphics();
     closeBg.fillStyle(0xff6b35);
     closeBg.fillRoundedRect(-80, -20, 160, 40, 10);
-    const closeText = this.add.text(0, 0, "🎮 Continuer", {
-      fontFamily: "Arial Black",
-      fontSize: 18,
-      color: "#ffffff"
-    }).setOrigin(0.5);
+    const closeText = this.add
+      .text(0, 0, "🎮 Continuer", {
+        fontFamily: "Arial Black",
+        fontSize: 18,
+        color: "#ffffff",
+      })
+      .setOrigin(0.5);
     closeBtn.add([closeBg, closeText]);
     closeBtn.setSize(160, 40);
     closeBtn.setInteractive({ useHandCursor: true });
@@ -558,7 +572,7 @@ export class WorldMap extends Scene {
       targets: popup,
       scale: 1,
       duration: 500,
-      ease: "Back.easeOut"
+      ease: "Back.easeOut",
     });
 
     // Animation du ninja (légère)
@@ -568,7 +582,7 @@ export class WorldMap extends Scene {
       duration: 800,
       yoyo: true,
       repeat: -1,
-      ease: "Sine.easeInOut"
+      ease: "Sine.easeInOut",
     });
   }
 
