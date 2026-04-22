@@ -1,15 +1,175 @@
-body {
+/**
+ * Yazan Escape Adventure - Styles CSS
+ * Jeu éducatif interactif pour enfants
+ */
+
+* {
     margin: 0;
     padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Arial', sans-serif;
     color: rgba(255, 255, 255, 0.87);
-    background-color: #000000;
+    background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+    min-height: 100vh;
+    overflow: hidden;
 }
 
 #app {
     width: 100%;
     height: 100vh;
-    overflow: hidden;
     display: flex;
     justify-content: center;
     align-items: center;
+    position: relative;
+}
+
+#game-container {
+    position: relative;
+    border-radius: 15px;
+    overflow: hidden;
+    box-shadow: 
+        0 0 50px rgba(255, 107, 53, 0.3),
+        0 0 100px rgba(155, 89, 182, 0.2),
+        0 25px 50px rgba(0, 0, 0, 0.5);
+}
+
+#game-container canvas {
+    border-radius: 15px;
+}
+
+/* Animation de fond subtile */
+@keyframes backgroundPulse {
+    0%, 100% {
+        background-position: 0% 50%;
+    }
+    50% {
+        background-position: 100% 50%;
+    }
+}
+
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: 
+        radial-gradient(circle at 20% 80%, rgba(255, 107, 53, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 80% 20%, rgba(155, 89, 182, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 40% 40%, rgba(247, 197, 49, 0.05) 0%, transparent 50%);
+    pointer-events: none;
+    z-index: -1;
+}
+
+/* Styles pour les inputs d'authentification */
+input[type="text"],
+input[type="email"],
+input[type="password"] {
+    font-family: 'Arial', sans-serif;
+    transition: all 0.3s ease;
+}
+
+input::placeholder {
+    color: rgba(255, 255, 255, 0.4);
+}
+
+input:focus {
+    transform: scale(1.02);
+}
+
+/* Responsive */
+@media (max-width: 1024px) {
+    #game-container {
+        max-width: 100vw;
+        max-height: 100vh;
+        border-radius: 0;
+    }
+    
+    #game-container canvas {
+        border-radius: 0;
+    }
+}
+
+/* Accessibilité - Mode contraste élevé */
+@media (prefers-contrast: high) {
+    body {
+        background: #000000;
+    }
+    
+    #game-container {
+        border: 3px solid #ffffff;
+    }
+}
+
+/* Animation de chargement */
+.loading-indicator {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+}
+
+.loading-indicator::after {
+    content: '';
+    display: block;
+    width: 50px;
+    height: 50px;
+    margin: 20px auto;
+    border: 4px solid rgba(255, 107, 53, 0.3);
+    border-top-color: #ff6b35;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+/* Curseur personnalisé pour les éléments interactifs */
+.interactive {
+    cursor: pointer;
+}
+
+/* Désactivation du zoom sur mobile */
+html {
+    touch-action: manipulation;
+}
+
+/* Effet de brillance sur les boutons */
+.btn-glow {
+    position: relative;
+    overflow: hidden;
+}
+
+.btn-glow::after {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: linear-gradient(
+        45deg,
+        transparent 30%,
+        rgba(255, 255, 255, 0.1) 50%,
+        transparent 70%
+    );
+    transform: rotate(45deg);
+    animation: shine 3s infinite;
+}
+
+@keyframes shine {
+    0% {
+        transform: translateX(-100%) rotate(45deg);
+    }
+    100% {
+        transform: translateX(100%) rotate(45deg);
+    }
 }
